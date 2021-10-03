@@ -1,0 +1,220 @@
+﻿<Window x:Class="HomeWork_10.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HomeWork_10"
+        mc:Ignorable="d"
+        Title="Telegram_bot" Height="450" Width="800"
+        MinHeight="450" MinWidth="800">
+
+    <TabControl>
+        <TabItem Header="Сообщения">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="150"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition MinWidth="200"/>
+                </Grid.ColumnDefinitions>
+
+                <GridSplitter
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    Width="3">
+                </GridSplitter>
+
+                <GroupBox
+                    Header="Сообщения"
+                    FontSize="15"
+                    Grid.Column="0"
+                    Margin="5">
+
+                    <ListBox
+                        x:Name="Message_list"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10">
+                                    <TextBlock 
+                                        Text="{Binding Name}" 
+                                        FontSize="15" 
+                                        TextWrapping="Wrap"/>
+
+                                    <TextBlock 
+                                        Text="{Binding Message}" 
+                                        FontSize="10"
+                                        TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </GroupBox>
+
+                <GroupBox
+                    Header="Отправка сообщения"
+                    FontSize="15"
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    Margin="5">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="250"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel
+                            Grid.Row="0">
+
+                            <TextBlock Text="Id получателя:" FontSize="15"/>
+                            <TextBlock x:Name="Users_id" Text="{Binding ElementName=Message_list, Path=SelectedItem.Id}"/>
+                        </StackPanel>
+
+                        <TextBox 
+                            x:Name="Message_text"
+                            Text="Текст сообщения"
+                            FontSize="12"
+                            Grid.Row="1"
+                            TextWrapping="Wrap">
+                        </TextBox>
+
+                        <Button
+                            x:Name="btn_message_send"
+                            Content="Отправить"
+                            Grid.Row="2"
+                            FontSize="15" Click="btn_message_send_Click"
+                            Margin="2">
+                        </Button>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Log">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.75*"/>
+                </Grid.ColumnDefinitions>
+
+                <GroupBox
+                    Header="Log сообщений"
+                    Grid.Column="0"
+                    FontSize="15"
+                    Margin="5">
+
+                    <ListBox
+                            Grid.Row="0"
+                            x:Name="Log_message"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10">
+                                    <TextBlock 
+                                        Text="{Binding Name}" 
+                                        FontSize="15" 
+                                        TextWrapping="Wrap"/>
+
+                                    <TextBlock 
+                                        Text="{Binding Date}" 
+                                        FontSize="10" 
+                                        TextWrapping="Wrap"/>
+
+                                    <TextBlock 
+                                        Text="{Binding Message}" 
+                                        FontSize="10" 
+                                        TextWrapping="Wrap"/>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </GroupBox>
+
+                <GroupBox
+                    Header="Работа с историей сообщений"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Margin="5"
+                    FontSize="15">
+
+
+                        <StackPanel Grid.Column="0" Margin="5">
+                        <TextBox x:Name="txt_log_save" 
+                                     Text="Путь к файлу для сохранения" 
+                                     FontSize="12" 
+                                     Margin="10,10,10,5"
+                                     TextWrapping="Wrap"
+                                     MaxLength="500">
+                            
+                        </TextBox>
+                            
+                        <Button 
+                                x:Name="btn_log_save" 
+                                Content="Сохранить log"
+                                FontSize="12" 
+                                Margin="10,2,10,15" 
+                                Click="btn_log_save_Click">
+                        </Button>
+
+                        <TextBox x:Name="txt_log_load" 
+                                     Text="Путь к файлу для загрузки" 
+                                     FontSize="12" 
+                                     Margin="10,10,10,5"
+                                     TextWrapping="Wrap"
+                                     MaxLength="500">
+
+                        </TextBox>
+
+                        <Button 
+                                x:Name="btn_log_load" 
+                                Content="Загрузить log"
+                                FontSize="12" 
+                                Margin="10,2,10,15" 
+                                Click="btn_log_load_Click">
+                        </Button>
+
+                        <Button 
+                                x:Name="btn_log_clear"
+                                Content="Очистить log"
+                                FontSize="12"
+                                Margin="10,30,10,5" Click="btn_log_clear_Click">
+                            
+                        </Button>
+
+
+                    </StackPanel>
+
+
+                </GroupBox>
+
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Файлы">
+            <GroupBox
+                Header="Загруженные файлы"
+                FontSize="15"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Margin="5">
+
+                <ListBox 
+                    x:Name="list_box_file"
+                    FontSize="12"
+                    Margin="5"/>
+
+            </GroupBox>
+        </TabItem>
+    </TabControl>
+</Window>
